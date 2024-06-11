@@ -101,41 +101,6 @@ inputs:
 
 # Targets supported for Updates:
 
-For HPE Cray XD220v, HPE Cray XD225V and HPE Cray XD295 supported targets are:
-
-- BMC
-
-- BIOS
-
-- MainCPLD
-
-- HDDBPPIC
-
-- PDBPIC 
-
-
-
-For HPE Cray XD XD665 supported targets are:
-
-- BMC
-
-- BIOS
-
-- RT_NVME
-
-- RT_OTHER
-
-- RT_SA
-
-- PDB
-
-- MainCPLD
-
-- HDDCtrlr
-
-- UBM6
-
-
 For HPE Cray XD670 supported targets are:
 
 - BMC 
@@ -165,14 +130,6 @@ The playbook `system_firmware_update.yml` is used to perform the firmware upgrad
 2. Update the config.ini
 
    - update_target = Name of the target component to be upgraded, these are case sensitive refer to `Targets supported for Updates` [Required]
-
-   - update_image_path_xd220v : Path to local hpm file for HPE Cray XD220v
-
-   - update_image_path_xd225v :  Path to local hpm file for HPE Cray XD225v
-   
-   - update_image_path_xd295v : Path to local hpm file for HPE Cray XD295v
-
-   - update_image_path_xd665 : Path to local hpm file for HPE Cray XD665
 
    - update_image_path_xd670 : Path to local hpm file for HPE Cray XD670
 
