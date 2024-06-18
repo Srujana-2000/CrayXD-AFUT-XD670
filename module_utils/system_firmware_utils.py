@@ -538,9 +538,9 @@ class CrayRedfishUtils(RedfishUtils):
                             remarks="Please Do an AC cycle and try again"
                         lis=[IP,model,update_status,remarks]
                     else:
-                        if target=="BMC" and "XD670_BMC" in image_path or target=="BMCImage1" and "XD670_BMC" in image_path or target=="BMCImage2" and "XD670_BMC" in image_path:
+                        if target=="BMC" and "XD670_BMC" not in image_path or target=="BMCImage1" and "XD670_BMC" not in image_path or target=="BMCImage2" and "XD670_BMC" not in image_path:
                             return {'ret': False, 'changed': True, 'msg': 'Must specify correct image and target'}
-                        elif target=="BIOS" and "CUXD670" in image_path or target=="BIOS2" and "CUXD670" in image_path:
+                        elif target=="BIOS" and "CUXD670" not in image_path or target=="BIOS2" and "CUXD670" not in image_path:
                             return {'ret': False, 'changed': True, 'msg': 'Must specify correct image and target'}
                         bef_ver,aft_ver,update_status=self.helper_update(update_status,target,image_path,image_type,IP,username,password,model)
                         lis=[IP,model,bef_ver,aft_ver,update_status]
