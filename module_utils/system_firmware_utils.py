@@ -9,7 +9,7 @@ __metaclass__ = type
 #import pandas as pd
 import json
 import subprocess
-import time 
+import time
 from requests_toolbelt import MultipartEncoder
 from ansible_collections.community.general.plugins.module_utils.redfish_utils import RedfishUtils
 from ansible.module_utils.urls import open_url, prepare_multipart
@@ -23,7 +23,7 @@ supported_models=["XD670"]
 partial_models={}
 #{"HPE CRAY XD670": "XD670", "HPE CRAY XD670 DLC": "XD670", "HPE CRAY XD670 SC": "XD670", "HPE CRAY XD665": "XD665", "HPE CRAY XD665 SC": "XD665", "HPE CRAY XD220v": "XD220"}
 supported_targets={
-    "XD670": ["BMC", "BMCImage1", "BMCImage2", "BIOS", "BIOS2", "BPB_CPLD1", "BPB_CPLD2", "MB_CPLD1", "SCM_CPLD1"],
+    "XD670": ["BMC", "BMCImage1", "BMCImage2", "BIOS", "BIOS2", "BPB_CPLD1", "BPB_CPLD2", "MB_CPLD1", "SCM_CPLD1", "GPU_ALL"],
 }
 
 XD670_unsupported_targets = ["BMCImage1","BPB_CPLD1", "BPB_CPLD2", "MB_CPLD1", "SCM_CPLD1"] #only of Jakku
@@ -32,7 +32,7 @@ XD670_unsupported_targets = ["BMCImage1","BPB_CPLD1", "BPB_CPLD2", "MB_CPLD1", "
 #MB_CPLD1 and SCM_CPLD1 together equivalent to MB_CPLD1_SCM_CPLD1
 
 XD670_targets = ['BMC', 'BMCImage1', 'BMCImage2', 'BIOS', 'BIOS2', 'BPB_CPLD1', 'BPB_CPLD2', 'MB_CPLD1', 'SCM_CPLD1']
- 
+
 reboot = {
     "BIOS": ["AC_PC_redfish"],
     "BIOS2": ["AC_PC_redfish"],
@@ -84,7 +84,7 @@ class CrayRedfishUtils(RedfishUtils):
                 if "XD" in dum:
                     partial_models[model.upper()]=dum.upper()
         return model
-        
+
     def power_state(self):
         response = self.get_request(self.root_uri + "/redfish/v1/Systems/Self")
         if response['ret'] is False:
@@ -97,13 +97,13 @@ class CrayRedfishUtils(RedfishUtils):
             if 'PowerState' in response:
                 state = response[u'PowerState'].strip()
         return state
-        
+
     def power_on(self):
         payload = {"ResetType": "On"}
         target_uri = "/redfish/v1/Systems/Self/Actions/ComputerSystem.Reset"
         response1 = self.post_request(self.root_uri + target_uri, payload)
         time.sleep(120)
-    
+
     def power_off(self):
         payload = {"ResetType": "ForceOff"}
         target_uri = "/redfish/v1/Systems/Self/Actions/ComputerSystem.Reset"
@@ -135,21 +135,21 @@ class CrayRedfishUtils(RedfishUtils):
                 lis=[IP,model,power_state]
             elif option.upper()=="ON":
                 if power_state.upper()=="OFF":
-                    self.power_on()   
+                    self.power_on()
                 power_state = self.power_state()
-                lis=[IP,model,power_state]  
+                lis=[IP,model,power_state]
             elif option.upper()=="OFF":
                 if power_state.upper()=="ON":
-                    self.power_off()   
+                    self.power_off()
                 power_state = self.power_state()
                 lis=[IP,model,power_state]
             else:
                 return {'ret': False, 'changed': True, 'msg': 'Must specify the correct required option for power_state in config.ini'}
-        
+
         else:
             lis=[IP,model,"unsupported_model"]
         new_data=",".join(lis)
-        return {'ret': True,'changed': True, 'msg': str(new_data)}     
+        return {'ret': True,'changed': True, 'msg': str(new_data)}
 
 
     def target_supported(self,model,target):
@@ -159,7 +159,7 @@ class CrayRedfishUtils(RedfishUtils):
             return False
         except:
             return False
-    
+
     def get_fw_version(self,target):
         try:
             response = self.get_request(self.root_uri + "/redfish/v1/UpdateService/FirmwareInventory"+"/"+target)
@@ -173,8 +173,13 @@ class CrayRedfishUtils(RedfishUtils):
                 return version
         except:
             return "failed_FI_GET_call/no_version_field"
-    
- 
+
+    def bmcfreememory(self):
+        payload = {}
+        target_uri = "/redfish/v1/UpdateService/Action/Oem/Gbt/HMCUpdate.PrepareFreeMemory"
+        response = self.post_request(self.root_uri + target_uri, payload)
+        return response
+
     def AC_PC_redfish(self):
         payload = {"ResetType": "ForceRestart"}
         target_uri = "/redfish/v1/Systems/Self/Actions/ComputerSystem.Reset"
@@ -185,7 +190,7 @@ class CrayRedfishUtils(RedfishUtils):
         time.sleep(180)
         return response1 or response2
 
-    def AC_PC_ipmi(self, IP, username, password, routing_value): 
+    def AC_PC_ipmi(self, IP, username, password, routing_value):
         try:
             command='ipmitool -I lanplus -H '+IP+' -U '+username+' -P '+password+' raw '+ routing_value
             subprocess.run(command, shell=True, check=True, timeout=15)
@@ -194,12 +199,11 @@ class CrayRedfishUtils(RedfishUtils):
             return True
         except:
             return False
-
-    def get_sys_fw_inventory(self,attr):
+    def get_gpu_inventory(self,attr):
         IP = attr.get('baseuri')
         csv_file_name = attr.get('output_file_name')
         model = self.get_model()
-        if not os.path.exists(csv_file_name):      
+        if not os.path.exists(csv_file_name):
             f = open(csv_file_name, "w")
             to_write="IP_Address,Model,BMC,BMCImage1,BMCImage2,BIOS,BIOS2,BPB_CPLD1,BPB_CPLD2,MB_CPLD1,SCM_CPLD1\n"
             all_targets = XD670_targets
@@ -227,11 +231,98 @@ class CrayRedfishUtils(RedfishUtils):
         new_data=",".join(entry)
         return {'ret': True,'changed': True, 'msg': str(new_data)}
 
+    def get_sys_fw_inventory(self,attr):
+        IP = attr.get('baseuri')
+        csv_file_name = attr.get('output_file_name')
+        model = self.get_model()
+        if not os.path.exists(csv_file_name):
+            f = open(csv_file_name, "w")
+            to_write="IP_Address,Model,BMC,BMCImage1,BMCImage2,BIOS,BIOS2,BPB_CPLD1,BPB_CPLD2,MB_CPLD1,SCM_CPLD1\n"
+            all_targets = XD670_targets
+            f.write(to_write)
+            f.close()
+        entry=[]
+        entry.append(IP)
+        if model=="NA":
+            entry.append("unreachable/unsupported_system") #unreachable or not having model field correctly, i.e not even a XD system
+            for target in all_targets:
+                entry.append("NA")
+        elif partial_models[model.upper()] not in supported_models: #might be a Cray XD like XD685 which is not yet supported
+            entry.append("unsupported_model, ",partial_models)
+            for target in all_targets:
+                entry.append("NA")
+            #return {'ret': True, 'changed': True, 'msg': 'Must specify systems of only the supported models. Please check the model of %s'%(IP)}
+        else:
+            entry.append(model)
+            for target in all_targets:
+                if target in supported_targets[partial_models[model.upper()]]:
+                    version=self.get_fw_version(target)
+                else:
+                    version = "NA"
+                entry.append(version)
+        new_data=",".join(entry)
+        return {'ret': True,'changed': True, 'msg': str(new_data)}
+
+    def helper_update_GPU(self,update_status,target,image_path,image_type,IP,username,password,model):
+        update_status=None
+        response = self.get_request(self.root_uri + "/redfish/v1/UpdateService")
+        if response['ret'] is False:
+            update_status="UpdateService api not found"
+        else:
+            data = response['data']
+            if 'MultipartHttpPushUri' in data:
+                headers = {'Expect': 'Continue','Content-Type': 'multipart/form-data'}
+                body = {}
+                if target=="GPU_ALL" and image_type=="HMC":
+                    response = self.bmcfreememory()
+                    if not response:
+                        update_status="BMC free memory failed"
+                    else:
+                        time.sleep(120)
+                        targets_uri='/redfish/v1/UpdateService/FirmwareInventory/HGX_FW_BMC_0'
+                        body['UpdateParameters'] = (None, json.dumps({"Targets": [targets_uri]}), 'application/json')
+                        body['OemParameters'] = (None, json.dumps({"ImageType": image_type}) , 'application/json')
+                        with open(image_path, 'rb') as image_path_rb:
+                            body['UpdateFile'] = (image_path, image_path_rb,'application/octet-stream' )
+                            encoder = MultipartEncoder(body)
+                            body = encoder.to_string()
+                            headers['Content-Type'] = encoder.content_type
+                            response = self.post_multi_request(self.root_uri + data['MultipartHttpPushUri'],
+                                                        headers=headers, payload=body)
+                            if response is False:
+                                update_status="failed_Post"
+                                after_version="NA"
+                            else:
+                                update_status="success"
+                elif image_type=="HMC_Partial":
+                    response = self.bmcfreememory()
+                    if not response:
+                        update_status="BMC free memory failed"
+                    else:
+                        time.sleep(120)
+                        targets = target.split()
+                        targets_uri='/redfish/v1/UpdateService/FirmwareInventory/'
+                        formatted_targets = ','.join([f"'{targets_uri}{target}'" for target in targets])
+                        body['UpdateParameters'] = (None, json.dumps({"Targets": [formatted_targets]}), 'application/json')
+                        body['OemParameters'] = (None, json.dumps({"ImageType": image_type}) , 'application/json')
+                        with open(image_path, 'rb') as image_path_rb:
+                            body['UpdateFile'] = (image_path, image_path_rb,'application/octet-stream' )
+                            encoder = MultipartEncoder(body)
+                            body = encoder.to_string()
+                            headers['Content-Type'] = encoder.content_type
+                            response = self.post_multi_request(self.root_uri + data['MultipartHttpPushUri'],
+                                                        headers=headers, payload=body)
+                            if response is False:
+                                update_status="failed_Post"
+                            else:
+                                update_status="success"
+            return update_status
+
     def helper_update(self,update_status,target,image_path,image_type,IP,username,password,model):
         before_version=None
         after_version=None
         update_status=None
-        if target!="BPB_CPLD" and target!="SCM_CPLD1" and target!="MB_CPLD1" and target!="GPU":
+        if target!="BPB_CPLD" and target!="SCM_CPLD1" and target!="MB_CPLD1":
             before_version = self.get_fw_version(target)
             if target=="BMC" and "XD670" in model.upper() and "failed" in before_version:
                 target="BMCImage1"
@@ -251,16 +342,12 @@ class CrayRedfishUtils(RedfishUtils):
                     headers = {'Expect': 'Continue','Content-Type': 'multipart/form-data'}
                     body = {}
                     if target!="BPB_CPLD":
-                        if image_type=="PLDM":
-                            targets_uri='/redfish/v1/UpdateService/upload/'
-                            body['UpdateParameters'] = (None, json.dumps({"Targets": []}), 'application/json')
-                        else:
-                            targets_uri='/redfish/v1/UpdateService/FirmwareInventory/'+target+'/'
-                            body['UpdateParameters'] = (None, json.dumps({"Targets": [targets_uri]}), 'application/json')
+                        targets_uri='/redfish/v1/UpdateService/FirmwareInventory/'+target+'/'
+                        body['UpdateParameters'] = (None, json.dumps({"Targets": [targets_uri]}), 'application/json')
                     else:
-                        body['UpdateParameters'] = (None, json.dumps({"Targets": ['/redfish/v1/UpdateService/FirmwareInventory/BPB_CPLD1/', '/redfish/v1/UpdateService/FirmwareInventory/BPB_CPLD2/']}), 'application/json')
+                        body['UpdateParameters'] = (None, json.dumps({"Targets": ['/redfish/v1/UpdateService/FirmwareInventory/BPB_CPLD1','/redfish/v1/UpdateService/FirmwareInventory/BPB_CPLD2']}), 'application/json')
                     body['OemParameters'] = (None, json.dumps({"ImageType": image_type}) , 'application/json')
-                    with open(image_path, 'rb') as image_path_rb: 
+                    with open(image_path, 'rb') as image_path_rb:
                         body['UpdateFile'] = (image_path, image_path_rb,'application/octet-stream' )
                         encoder = MultipartEncoder(body)
                         body = encoder.to_string()
@@ -285,12 +372,12 @@ class CrayRedfishUtils(RedfishUtils):
                                             break
                                         time.sleep(300)
                                     elif reb=="AC_PC_ipmi":
-                                        result = self.AC_PC_ipmi(IP, username, password, routing[partial_models[model.upper()]]) #based on the model end routing code changes 
+                                        result = self.AC_PC_ipmi(IP, username, password, routing[partial_models[model.upper()]]) #based on the model end routing code changes
                                         if not result:
                                             update_status="reboot_failed"
                                             break
                             if update_status.lower()=="success":
-                                #call version of respective target and store versions after update    
+                                #call version of respective target and store versions after update
                                 time.sleep(180) #extra time requiring as of now for systems under test
                                 if target!="BPB_CPLD" and target!="SCM_CPLD1" and target!="MB_CPLD1" and target!="GPU":
                                     after_version=self.get_fw_version(target)
@@ -298,13 +385,13 @@ class CrayRedfishUtils(RedfishUtils):
                                 if target!="BPB_CPLD" and target!="SCM_CPLD1" and target!="MB_CPLD1" and target!="GPU":
                                     after_version="NA"
 
-            if target!="BPB_CPLD" and target!="SCM_CPLD1" and target!="MB_CPLD1" and target!="GPU":                     
+            if target!="BPB_CPLD" and target!="SCM_CPLD1" and target!="MB_CPLD1":
                 return before_version,after_version,update_status
             else:
                 return update_status
         else:
             update_status="NA"
-            if target!="BPB_CPLD" and target!="SCM_CPLD1" and target!="MB_CPLD1" and target!="GPU":
+            if target!="BPB_CPLD" and target!="SCM_CPLD1" and target!="MB_CPLD1":
                 after_version="NA"
                 return before_version,after_version,update_status
             else:
@@ -339,23 +426,24 @@ class CrayRedfishUtils(RedfishUtils):
         csv_file_name = attr.get('output_file_name')
         image_type = config.get('Firmware_type','update_image_type')
         if image_type is None:
-            image_type = attr.get('update_image_type')
+            image_type = attr.get('update_image_type') 
 
         if target=="" or target.upper() in XD670_unsupported_targets:
-            return {'ret': False, 'changed': True, 'msg': 'Must specify the correct target for firmware update'}
-       
+            return {'ret': False, 'changed': True, 'msg': 'Must specify the correct target for firmware update'}    
         model = self.get_model()
 
         if not os.path.exists(csv_file_name):
             f = open(csv_file_name, "w")
             if target=="BPB_CPLD" or target=="SCM_CPLD1_MB_CPLD1":
-                to_write="IP_Address,Model,Update_Status,Remarks\n"                 
+                to_write="IP_Address,Model,Update_Status,Remarks\n"
+            elif target=="GPU_ALL" or image_type=="HMC_Partial":
+                to_write="IP_Address,Model,Update_Status,Remarks\n"
             else:
                 to_write="IP_Address,Model,"+target+'_Pre_Ver,'+target+'_Post_Ver,'+"Update_Status\n"
             f.write(to_write)
-            f.close() 
+            f.close()
         if model=="NA":
-            update_status="unreachable/unsupported_system" 
+            update_status="unreachable/unsupported_system"
             if target=="SCM_CPLD1_MB_CPLD1" or target=="BPB_CPLD":
                 lis=[IP,model,update_status,"NA"]
             else:
@@ -363,7 +451,7 @@ class CrayRedfishUtils(RedfishUtils):
             new_data=",".join(lis)
             return {'ret': True,'changed': True, 'msg': str(new_data)}
         elif partial_models[model.upper()] not in supported_models:
-            update_status="unsupported_model" 
+            update_status="unsupported_model"
             if target=="SCM_CPLD1_MB_CPLD1" or target=="BPB_CPLD":
                 lis=[IP,model,update_status,"NA"]
             else:
@@ -385,13 +473,17 @@ class CrayRedfishUtils(RedfishUtils):
                 elif target=='SCM_CPLD1_MB_CPLD1':
                     is_target_supported=True
                     image_paths=image_path_inputs["XD670"].split()
-                    if len(image_paths)!=2: 
+                    if len(image_paths)!=2:
                         return {'ret': False, 'changed': True,'msg': 'Must specify exactly 2 image_paths, first for SCM_CPLD1 of Cray XD670 and second for MB_CPLD1 of Cray XD670'}
+                    elif "SCM" not in image_paths[0]:
+                        return {'ret': False, 'changed': True,'msg': 'Must specify correct image and target'}
+                    elif "MB" not in image_paths[1]:
+                        return {'ret': False, 'changed': True,'msg': 'Must specify correct image and target'}
                     for img_path in image_paths:
                         if not os.path.isfile(img_path):
                             #update_status = "fw_file_absent"
                             return {'ret': False, 'changed': True,'msg': 'Must specify correct image_paths for SCM_CPLD1_MB_CPLD1, first for SCM_CPLD1 of Cray XD670 and second for MB_CPLD1 of Cray XD670'}
-            
+
             if target!="SCM_CPLD1_MB_CPLD1" and not os.path.isfile(image_path):
                 update_status = "NA_fw_file_absent"
                 if target=="BPB_CPLD":
@@ -409,7 +501,7 @@ class CrayRedfishUtils(RedfishUtils):
                     if target=="SCM_CPLD1_MB_CPLD1" or target=="BPB_CPLD":
                         lis=[IP,model,update_status,"NA"]
                     else:
-                        lis=[IP,model,"NA","NA",update_status]    
+                        lis=[IP,model,"NA","NA",update_status]
                     new_data=",".join(lis)
                     return {'ret': True,'changed': True, 'msg': str(new_data)}
                 else:
@@ -425,7 +517,7 @@ class CrayRedfishUtils(RedfishUtils):
                                 if power_state.lower() == "on":
                                     lis=[IP,model,"NA","MB_CPLD1 requires node off, tried powering off the node, but failed to power off"] #unable to power off node for MB_CPLD1
                                 else:
-                                    update_status=self.helper_update(update_status,"MB_CPLD1",image_paths[1],image_type,IP,username,password,model)  
+                                    update_status=self.helper_update(update_status,"MB_CPLD1",image_paths[1],image_type,IP,username,password,model)
                                     if update_status.lower() == "success":
                                         remarks="Please plug out and plug in power cables physically"
                                     else:
@@ -438,10 +530,19 @@ class CrayRedfishUtils(RedfishUtils):
                         else:
                             remarks="Please reflash the firmware and DO NOT DO physical power cycle"
                         lis=[IP,model,update_status,remarks]
+                    elif "HMC" in image_type:
+                        update_status=self.helper_update_GPU(update_status,target,image_path,image_type,IP,username,password,model)
+                        if update_status.lower() == "success":
+                            remarks="It will take nearly 30 ~ 40 minutes to update baseboard firmware's. The target system will be reboot once the firmware update procedure completed"
+                        else:
+                            remarks="Please Do an AC cycle and try again"
+                        lis=[IP,model,update_status,remarks]
                     else:
+                        if target=="BMC" and "XD670_BMC" in image_path or target=="BMCImage1" and "XD670_BMC" in image_path or target=="BMCImage2" and "XD670_BMC" in image_path:
+                            return {'ret': False, 'changed': True, 'msg': 'Must specify correct image and target'}
+                        elif target=="BIOS" and "CUXD670" in image_path or target=="BIOS2" and "CUXD670" in image_path:
+                            return {'ret': False, 'changed': True, 'msg': 'Must specify correct image and target'}
                         bef_ver,aft_ver,update_status=self.helper_update(update_status,target,image_path,image_type,IP,username,password,model)
                         lis=[IP,model,bef_ver,aft_ver,update_status]
                     new_data=",".join(lis)
                     return {'ret': True,'changed': True, 'msg': str(new_data)}
-
-                    
