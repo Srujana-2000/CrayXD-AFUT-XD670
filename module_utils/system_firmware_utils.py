@@ -23,7 +23,7 @@ supported_models=["XD670"]
 partial_models={}
 #{"HPE CRAY XD670": "XD670", "HPE CRAY XD670 DLC": "XD670", "HPE CRAY XD670 SC": "XD670", "HPE CRAY XD665": "XD665", "HPE CRAY XD665 SC": "XD665", "HPE CRAY XD220v": "XD220"}
 supported_targets={
-    "XD670": ["BMC", "BMCImage1", "BMCImage2", "BIOS", "BIOS2", "BPB_CPLD1", "BPB_CPLD2", "MB_CPLD1", "SCM_CPLD1", "GPU_ALL"],
+    "XD670": ["BMC", "BMCImage1", "BMCImage2", "BIOS", "BIOS2", "BPB_CPLD1", "BPB_CPLD2", "MB_CPLD1", "SCM_CPLD1", "GPU_ALL","HGX_FW_BMC_0", "HGX_FW_ERoT_BMC_0", "HGX_FW_ERoT_FPGA_0", "HGX_FW_ERoT_GPU_SXM_1", "HGX_FW_ERoT_GPU_SXM_2", "HGX_FW_ERoT_GPU_SXM_3", "HGX_FW_ERoT_GPU_SXM_4", "HGX_FW_ERoT_GPU_SXM_5", "HGX_FW_ERoT_GPU_SXM_6", "HGX_FW_ERoT_GPU_SXM_7", "HGX_FW_ERoT_GPU_SXM_8", "HGX_FW_ERoT_NVSwitch_0", "HGX_FW_ERoT_NVSwitch_1", "HGX_FW_ERoT_NVSwitch_2", "HGX_FW_ERoT_NVSwitch_3", "HGX_FW_ERoT_PCIeSwitch_0", "HGX_FW_ERoT_PCIeSwitch_0","HGX_FW_GPU_SXM_1","HGX_FW_GPU_SXM_2","HGX_FW_GPU_SXM_3","HGX_FW_GPU_SXM_4","HGX_FW_GPU_SXM_5","HGX_FW_GPU_SXM_6","HGX_FW_GPU_SXM_7","HGX_FW_GPU_SXM_8","HGX_FW_NVSwitch_0","HGX_FW_NVSwitch_1","HGX_FW_NVSwitch_2","HGX_FW_NVSwitch_3","HGX_FW_PCIeRetimer_0","HGX_FW_PCIeRetimer_1","HGX_FW_PCIeRetimer_2","HGX_FW_PCIeRetimer_3","HGX_FW_PCIeRetimer_4","HGX_FW_PCIeRetimer_5","HGX_FW_PCIeRetimer_6","HGX_FW_PCIeRetimer_7","HGX_FW_PCIeSwitch_0","HGX_InfoROM_GPU_SXM_1","HGX_InfoROM_GPU_SXM_2","HGX_InfoROM_GPU_SXM_3","HGX_InfoROM_GPU_SXM_4","HGX_InfoROM_GPU_SXM_5","HGX_InfoROM_GPU_SXM_6","HGX_InfoROM_GPU_SXM_7","HGX_InfoROM_GPU_SXM_8"],
 }
 
 XD670_unsupported_targets = ["BMCImage1","BPB_CPLD1", "BPB_CPLD2", "MB_CPLD1", "SCM_CPLD1"] #only of Jakku
@@ -32,6 +32,7 @@ XD670_unsupported_targets = ["BMCImage1","BPB_CPLD1", "BPB_CPLD2", "MB_CPLD1", "
 #MB_CPLD1 and SCM_CPLD1 together equivalent to MB_CPLD1_SCM_CPLD1
 
 XD670_targets = ['BMC', 'BMCImage1', 'BMCImage2', 'BIOS', 'BIOS2', 'BPB_CPLD1', 'BPB_CPLD2', 'MB_CPLD1', 'SCM_CPLD1']
+GPU_targets = ['HGX_FW_BMC_0', 'HGX_FW_ERoT_BMC_0', 'HGX_FW_ERoT_FPGA_0', 'HGX_FW_ERoT_GPU_SXM_1', 'HGX_FW_ERoT_GPU_SXM_2', 'HGX_FW_ERoT_GPU_SXM_3', 'HGX_FW_ERoT_GPU_SXM_4', 'HGX_FW_ERoT_GPU_SXM_5', 'HGX_FW_ERoT_GPU_SXM_6', 'HGX_FW_ERoT_GPU_SXM_7', 'HGX_FW_ERoT_GPU_SXM_8', 'HGX_FW_ERoT_NVSwitch_0', 'HGX_FW_ERoT_NVSwitch_1', 'HGX_FW_ERoT_NVSwitch_2', 'HGX_FW_ERoT_NVSwitch_3', 'HGX_FW_ERoT_PCIeSwitch_0', 'HGX_FW_ERoT_PCIeSwitch_0', 'HGX_FW_GPU_SXM_1', 'HGX_FW_GPU_SXM_2', 'HGX_FW_GPU_SXM_3', 'HGX_FW_GPU_SXM_4', 'HGX_FW_GPU_SXM_5', 'HGX_FW_GPU_SXM_6', 'HGX_FW_GPU_SXM_7', 'HGX_FW_GPU_SXM_8', 'HGX_FW_NVSwitch_0', 'HGX_FW_NVSwitch_1', 'HGX_FW_NVSwitch_2', 'HGX_FW_NVSwitch_3', 'HGX_FW_PCIeRetimer_0', 'HGX_FW_PCIeRetimer_1', 'HGX_FW_PCIeRetimer_2', 'HGX_FW_PCIeRetimer_3', 'HGX_FW_PCIeRetimer_4', 'HGX_FW_PCIeRetimer_5', 'HGX_FW_PCIeRetimer_6', 'HGX_FW_PCIeRetimer_7', 'HGX_FW_PCIeSwitch_0', 'HGX_InfoROM_GPU_SXM_1', 'HGX_InfoROM_GPU_SXM_2', 'HGX_InfoROM_GPU_SXM_3', 'HGX_InfoROM_GPU_SXM_4', 'HGX_InfoROM_GPU_SXM_5', 'HGX_InfoROM_GPU_SXM_6', 'HGX_InfoROM_GPU_SXM_7', 'HGX_InfoROM_GPU_SXM_8']
 
 reboot = {
     "BIOS": ["AC_PC_redfish"],
@@ -205,8 +206,8 @@ class CrayRedfishUtils(RedfishUtils):
         model = self.get_model()
         if not os.path.exists(csv_file_name):
             f = open(csv_file_name, "w")
-            to_write="IP_Address,Model,BMC,BMCImage1,BMCImage2,BIOS,BIOS2,BPB_CPLD1,BPB_CPLD2,MB_CPLD1,SCM_CPLD1\n"
-            all_targets = XD670_targets
+            to_write="IP_Address,Model,HGX_FW_BMC_0,HGX_FW_ERoT_BMC_0,HGX_FW_ERoT_FPGA_0,HGX_FW_ERoT_GPU_SXM_1,HGX_FW_ERoT_GPU_SXM_2,HGX_FW_ERoT_GPU_SXM_3,HGX_FW_ERoT_GPU_SXM_4,HGX_FW_ERoT_GPU_SXM_5,HGX_FW_ERoT_GPU_SXM_6,HGX_FW_ERoT_GPU_SXM_7,HGX_FW_ERoT_GPU_SXM_8,HGX_FW_ERoT_NVSwitch_0,HGX_FW_ERoT_NVSwitch_1,HGX_FW_ERoT_NVSwitch_2,HGX_FW_ERoT_NVSwitch_3,HGX_FW_ERoT_PCIeSwitch_0,HGX_FW_ERoT_PCIeSwitch_0,HGX_FW_GPU_SXM_1,HGX_FW_GPU_SXM_2,HGX_FW_GPU_SXM_3,HGX_FW_GPU_SXM_4,HGX_FW_GPU_SXM_5,HGX_FW_GPU_SXM_6,HGX_FW_GPU_SXM_7,HGX_FW_GPU_SXM_8,HGX_FW_NVSwitch_0,HGX_FW_NVSwitch_1,HGX_FW_NVSwitch_2,HGX_FW_NVSwitch_3,HGX_FW_PCIeRetimer_0,HGX_FW_PCIeRetimer_1,HGX_FW_PCIeRetimer_2,HGX_FW_PCIeRetimer_3,HGX_FW_PCIeRetimer_4,HGX_FW_PCIeRetimer_5,HGX_FW_PCIeRetimer_6,HGX_FW_PCIeRetimer_7,HGX_FW_PCIeSwitch_0,HGX_InfoROM_GPU_SXM_1,HGX_InfoROM_GPU_SXM_2,HGX_InfoROM_GPU_SXM_3,HGX_InfoROM_GPU_SXM_4,HGX_InfoROM_GPU_SXM_5,HGX_InfoROM_GPU_SXM_6,HGX_InfoROM_GPU_SXM_7,HGX_InfoROM_GPU_SXM_8\n"
+            all_targets = GPU_targets
             f.write(to_write)
             f.close()
         entry=[]
@@ -268,54 +269,46 @@ class CrayRedfishUtils(RedfishUtils):
         response = self.get_request(self.root_uri + "/redfish/v1/UpdateService")
         if response['ret'] is False:
             update_status="UpdateService api not found"
+            return update_status
         else:
             data = response['data']
             if 'MultipartHttpPushUri' in data:
                 headers = {'Expect': 'Continue','Content-Type': 'multipart/form-data'}
                 body = {}
-                if target=="GPU_ALL" and image_type=="HMC":
-                    response = self.bmcfreememory()
-                    if not response:
-                        update_status="BMC free memory failed"
-                    else:
-                        time.sleep(120)
-                        targets_uri='/redfish/v1/UpdateService/FirmwareInventory/HGX_FW_BMC_0'
-                        body['UpdateParameters'] = (None, json.dumps({"Targets": [targets_uri]}), 'application/json')
-                        body['OemParameters'] = (None, json.dumps({"ImageType": image_type}) , 'application/json')
-                        with open(image_path, 'rb') as image_path_rb:
-                            body['UpdateFile'] = (image_path, image_path_rb,'application/octet-stream' )
-                            encoder = MultipartEncoder(body)
-                            body = encoder.to_string()
-                            headers['Content-Type'] = encoder.content_type
-                            response = self.post_multi_request(self.root_uri + data['MultipartHttpPushUri'],
-                                                        headers=headers, payload=body)
-                            if response is False:
-                                update_status="failed_Post"
-                                after_version="NA"
-                            else:
-                                update_status="success"
-                elif image_type=="HMC_Partial":
-                    response = self.bmcfreememory()
-                    if not response:
-                        update_status="BMC free memory failed"
-                    else:
-                        time.sleep(120)
-                        targets = target.split()
-                        targets_uri='/redfish/v1/UpdateService/FirmwareInventory/'
-                        formatted_targets = ','.join([f"'{targets_uri}{target}'" for target in targets])
-                        body['UpdateParameters'] = (None, json.dumps({"Targets": [formatted_targets]}), 'application/json')
-                        body['OemParameters'] = (None, json.dumps({"ImageType": image_type}) , 'application/json')
-                        with open(image_path, 'rb') as image_path_rb:
-                            body['UpdateFile'] = (image_path, image_path_rb,'application/octet-stream' )
-                            encoder = MultipartEncoder(body)
-                            body = encoder.to_string()
-                            headers['Content-Type'] = encoder.content_type
-                            response = self.post_multi_request(self.root_uri + data['MultipartHttpPushUri'],
-                                                        headers=headers, payload=body)
-                            if response is False:
-                                update_status="failed_Post"
-                            else:
-                                update_status="success"
+                if target=="GPU_ALL" and image_type=="HMC" and "fwpkg" in image_path:
+                    targets_uri='/redfish/v1/UpdateService/FirmwareInventory/HGX_FW_BMC_0'
+                    body['UpdateParameters'] = (None, json.dumps({"Targets": [targets_uri]}), 'application/json')
+                    body['OemParameters'] = (None, json.dumps({"ImageType": image_type}) , 'application/json')
+                    with open(image_path, 'rb') as image_path_rb:
+                        body['UpdateFile'] = (image_path, image_path_rb,'application/octet-stream' )
+                        encoder = MultipartEncoder(body)
+                        body = encoder.to_string()
+                        headers['Content-Type'] = encoder.content_type
+                        response = self.post_multi_request(self.root_uri + data['MultipartHttpPushUri'],
+                                                    headers=headers, payload=body)
+                        if response is False:
+                            update_status="failed post, Perform the DC power cycle and wait for 3 minutes"
+                        else:
+                            update_status="success"
+                elif image_type=="HMC_Partial" and "fwpkg" in image_path:
+                    targets = target.split()
+                    targets_uri='/redfish/v1/UpdateService/FirmwareInventory/'
+                    formatted_targets = ','.join([f"'{targets_uri}{target}'" for target in targets])
+                    body['UpdateParameters'] = (None, json.dumps({"Targets": [formatted_targets]}), 'application/json')
+                    body['OemParameters'] = (None, json.dumps({"ImageType": image_type}) , 'application/json')
+                    with open(image_path, 'rb') as image_path_rb:
+                        body['UpdateFile'] = (image_path, image_path_rb,'application/octet-stream' )
+                        encoder = MultipartEncoder(body)
+                        body = encoder.to_string()
+                        headers['Content-Type'] = encoder.content_type
+                        response = self.post_multi_request(self.root_uri + data['MultipartHttpPushUri'],
+                                                    headers=headers, payload=body)
+                        if response is False:
+                            update_status="failed post, Perform the DC power cycle and wait for 3 minutes"
+                        else:
+                            update_status="success"
+                else:
+                    update_status="Must specify the correct Firmware type and filename for firmware update"
             return update_status
 
     def helper_update(self,update_status,target,image_path,image_type,IP,username,password,model):
