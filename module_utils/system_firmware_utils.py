@@ -269,7 +269,6 @@ class CrayRedfishUtils(RedfishUtils):
         response = self.get_request(self.root_uri + "/redfish/v1/UpdateService")
         if response['ret'] is False:
             update_status="UpdateService api not found"
-            return update_status
         else:
             data = response['data']
             if 'MultipartHttpPushUri' in data:
