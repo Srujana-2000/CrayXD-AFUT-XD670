@@ -18,7 +18,7 @@ Run the Playbooks : Execute the playbook using the ansible-playbook command, pro
 
 # Ansible Firmware Update Tool
 
-This repository contains ansible modules, playbooks to perform firmware upgrade HPE Cray XD225v, HPE Cray XD295v, HPE Cray XD220v, HPE Cray XD670 and HPE Cray XD665
+This repository contains ansible modules, playbooks to perform firmware upgrade HPE Cray XD670
 
 
 
@@ -97,6 +97,8 @@ inputs:
 2. get_system_firmware_inventory.yml : Playbook to fetch the system firmware inventory information
 
 3. power_state_XD670.yml: Playbook to fetch the power state information, to power on, to power off the Cray XD670 nodes.
+   
+4. get_gpu_inventory.yml : Playbook to fetch the gpu inventory information
 
 
 # Targets supported for Updates:
@@ -118,6 +120,8 @@ For HPE Cray XD670 supported targets are:
 - BPB_CPLD1
 	
 - BPB_CPLD2
+  
+- GPU_ALL
 
 
 # Firmware Upgrade
@@ -151,6 +155,17 @@ The playbook `get_system_firmware_inventory.yml` is used to fetch the firmware i
 2. Run the ansible playbook:
 
    `ansible-playbook -i inventory get_system_firmware_inventory.yml  -e @system_credentials..yml`
+
+
+# GPU Inventory
+
+The playbook `get_system_firmware_inventory.yml` is used to fetch the firmware inventory information of the cray servers
+
+1. Update the following details in inputs.yml and inventory file accordingly
+
+2. Run the ansible playbook:
+
+   `ansible-playbook -i inventory get_gpu_inventory.yml  -e @system_credentials..yml
 
 
 
