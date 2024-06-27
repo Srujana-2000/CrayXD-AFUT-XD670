@@ -107,21 +107,19 @@ For HPE Cray XD670 supported targets are:
 
 - BMC 
 
-- BMC Image2
+- BMC_Image2
 	
 - BIOS
 
 - BIOS2
 
-- MB_CPLD1
+- SCM_CPLD1_MB_CPLD1
 
-- SCM_CPLD1
-
-- BPB_CPLD1
-	
-- BPB_CPLD2
+- BPB_CPLD
   
 - GPU_ALL
+  
+- <GPU_item1> <GPU_item2> <GPU_item3>........<GPU_item n>
 
 
 # Firmware Upgrade
