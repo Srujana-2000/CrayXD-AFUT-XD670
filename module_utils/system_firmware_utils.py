@@ -290,14 +290,15 @@ class CrayRedfishUtils(RedfishUtils):
                                 encoder = MultipartEncoder(body)
                                 body = encoder.to_string()
                                 headers['Content-Type'] = encoder.content_type
+                                response=True
                                 response = self.post_multi_request(self.root_uri + "/redfish/v1/UpdateService/upload",
-                                                            headers=headers, payload=body)
+                                                           headers=headers, payload=body)
                                 if response is False:
                                     update_status="failed_Post"
                                 else:
                                     update_status="success"
                         else:
-                            update_status="Please reboot the BMC and AC cycle the setup then try again later"
+                            update_status="Memory insufficient for firmware update"
             return update_status
 
     def helper_update(self,update_status,target,image_path,image_type,IP,username,password,model):
@@ -522,7 +523,7 @@ class CrayRedfishUtils(RedfishUtils):
                             update_status="Update Triggered"
                             remarks="It will take nearly 30 to 40 minutes to update baseboard firmware. The target system will be reboot once the firmware update procedure completed"
                         else:
-                            remarks="Please Do an AC cycle and try again"
+                            remarks="Perform BMC reset to free memory and Power cycle the system, try again once the system is up"
                         lis=[IP,model,update_status,remarks]
                     else:
                         if target=="BMC" and "XD670_BMC" not in image_path or target=="BMCImage1" and "XD670_BMC" not in image_path or target=="BMCImage2" and "XD670_BMC" not in image_path:
