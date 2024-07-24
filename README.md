@@ -118,8 +118,6 @@ For HPE Cray XD670 supported targets are:
 - BPB_CPLD
   
 - GPU_ALL
-  
-- <GPU_item1> <GPU_item2> <GPU_item3>........<GPU_item n>
 
 
 # Firmware Upgrade
