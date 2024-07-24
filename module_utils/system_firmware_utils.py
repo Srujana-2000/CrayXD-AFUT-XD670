@@ -421,7 +421,7 @@ class CrayRedfishUtils(RedfishUtils):
             f = open(csv_file_name, "w")
             if target=="BPB_CPLD" or target=="SCM_CPLD1_MB_CPLD1":
                 to_write="IP_Address,Model,Update_Status,Remarks\n"
-            elif target=="GPU_ALL" or image_type=="HMC_Partial":
+            elif target=="GPU_ALL":
                 to_write="IP_Address,Model,Update_Status,Remarks\n"
             else:
                 to_write="IP_Address,Model,"+target+'_Pre_Ver,'+target+'_Post_Ver,'+"Update_Status\n"
