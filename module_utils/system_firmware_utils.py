@@ -290,7 +290,6 @@ class CrayRedfishUtils(RedfishUtils):
                                 encoder = MultipartEncoder(body)
                                 body = encoder.to_string()
                                 headers['Content-Type'] = encoder.content_type
-                                response=True
                                 response = self.post_multi_request(self.root_uri + "/redfish/v1/UpdateService/upload",
                                                            headers=headers, payload=body)
                                 if response is False:
@@ -336,7 +335,6 @@ class CrayRedfishUtils(RedfishUtils):
                         encoder = MultipartEncoder(body)
                         body = encoder.to_string()
                         headers['Content-Type'] = encoder.content_type
-                        response=False
                         response = self.post_multi_request(self.root_uri + data['MultipartHttpPushUri'],
                                                     headers=headers, payload=body)
                         if response is False:
