@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 # Copyright (c) 2022-2023 Hewlett Packard Enterprise, Inc. All rights reserved.
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
@@ -23,7 +22,7 @@ supported_models=["XD670"]
 partial_models={}
 #{"HPE CRAY XD670": "XD670", "HPE CRAY XD670 DLC": "XD670", "HPE CRAY XD670 SC": "XD670", "HPE CRAY XD665": "XD665", "HPE CRAY XD665 SC": "XD665", "HPE CRAY XD220v": "XD220"}
 supported_targets={
-    "XD670": ["BMC", "BMCImage1", "BMCImage2", "BIOS", "BIOS2", "BPB_CPLD1", "BPB_CPLD2", "MB_CPLD1", "SCM_CPLD1", "GPU_ALL", "HGX_FW_BMC_0", "HGX_FW_ERoT_BMC_0", "HGX_FW_ERoT_FPGA_0", "HGX_FW_ERoT_GPU_SXM_1", "HGX_FW_ERoT_GPU_SXM_2", "HGX_FW_ERoT_GPU_SXM_3", "HGX_FW_ERoT_GPU_SXM_4", "HGX_FW_ERoT_GPU_SXM_5", "HGX_FW_ERoT_GPU_SXM_6", "HGX_FW_ERoT_GPU_SXM_7", "HGX_FW_ERoT_GPU_SXM_8", "HGX_FW_ERoT_NVSwitch_0", "HGX_FW_ERoT_NVSwitch_1", "HGX_FW_ERoT_NVSwitch_2", "HGX_FW_ERoT_NVSwitch_3", "HGX_FW_ERoT_PCIeSwitch_0", "HGX_FW_ERoT_PCIeSwitch_0","HGX_FW_GPU_SXM_1","HGX_FW_GPU_SXM_2","HGX_FW_GPU_SXM_3","HGX_FW_GPU_SXM_4","HGX_FW_GPU_SXM_5","HGX_FW_GPU_SXM_6","HGX_FW_GPU_SXM_7","HGX_FW_GPU_SXM_8","HGX_FW_NVSwitch_0","HGX_FW_NVSwitch_1","HGX_FW_NVSwitch_2","HGX_FW_NVSwitch_3","HGX_FW_PCIeRetimer_0","HGX_FW_PCIeRetimer_1","HGX_FW_PCIeRetimer_2","HGX_FW_PCIeRetimer_3","HGX_FW_PCIeRetimer_4","HGX_FW_PCIeRetimer_5","HGX_FW_PCIeRetimer_6","HGX_FW_PCIeRetimer_7","HGX_FW_PCIeSwitch_0","HGX_InfoROM_GPU_SXM_1","HGX_InfoROM_GPU_SXM_2","HGX_InfoROM_GPU_SXM_3","HGX_InfoROM_GPU_SXM_4","HGX_InfoROM_GPU_SXM_5","HGX_InfoROM_GPU_SXM_6","HGX_InfoROM_GPU_SXM_7","HGX_InfoROM_GPU_SXM_8"],
+    "XD670": ["BMC", "BMCImage1", "BMCImage2", "BIOS", "BIOS2", "BPB_CPLD1", "BPB_CPLD2", "MB_CPLD1", "SCM_CPLD1", "GPU_ALL", "HGX_FW_BMC_0", "HGX_FW_ERoT_BMC_0", "HGX_FW_ERoT_FPGA_0", "HGX_FW_ERoT_GPU_SXM_1", "HGX_FW_ERoT_GPU_SXM_2", "HGX_FW_ERoT_GPU_SXM_3", "HGX_FW_ERoT_GPU_SXM_4", "HGX_FW_ERoT_GPU_SXM_5", "HGX_FW_ERoT_GPU_SXM_6", "HGX_FW_ERoT_GPU_SXM_7", "HGX_FW_ERoT_GPU_SXM_8", "HGX_FW_ERoT_NVSwitch_0", "HGX_FW_ERoT_NVSwitch_1", "HGX_FW_ERoT_NVSwitch_2", "HGX_FW_ERoT_NVSwitch_3", "HGX_FW_ERoT_PCIeSwitch_0", "HGX_FW_FPGA_0","HGX_FW_GPU_SXM_1","HGX_FW_GPU_SXM_2","HGX_FW_GPU_SXM_3","HGX_FW_GPU_SXM_4","HGX_FW_GPU_SXM_5","HGX_FW_GPU_SXM_6","HGX_FW_GPU_SXM_7","HGX_FW_GPU_SXM_8","HGX_FW_NVSwitch_0","HGX_FW_NVSwitch_1","HGX_FW_NVSwitch_2","HGX_FW_NVSwitch_3","HGX_FW_PCIeRetimer_0","HGX_FW_PCIeRetimer_1","HGX_FW_PCIeRetimer_2","HGX_FW_PCIeRetimer_3","HGX_FW_PCIeRetimer_4","HGX_FW_PCIeRetimer_5","HGX_FW_PCIeRetimer_6","HGX_FW_PCIeRetimer_7","HGX_FW_PCIeSwitch_0","HGX_InfoROM_GPU_SXM_1","HGX_InfoROM_GPU_SXM_2","HGX_InfoROM_GPU_SXM_3","HGX_InfoROM_GPU_SXM_4","HGX_InfoROM_GPU_SXM_5","HGX_InfoROM_GPU_SXM_6","HGX_InfoROM_GPU_SXM_7","HGX_InfoROM_GPU_SXM_8"],
 }
 
 XD670_unsupported_targets = ["BMCImage1","BPB_CPLD1", "BPB_CPLD2", "MB_CPLD1", "SCM_CPLD1"] #only of Jakku
@@ -32,7 +31,7 @@ XD670_unsupported_targets = ["BMCImage1","BPB_CPLD1", "BPB_CPLD2", "MB_CPLD1", "
 #MB_CPLD1 and SCM_CPLD1 together equivalent to MB_CPLD1_SCM_CPLD1
 
 XD670_targets = ['BMC', 'BMCImage1', 'BMCImage2', 'BIOS', 'BIOS2', 'BPB_CPLD1', 'BPB_CPLD2', 'MB_CPLD1', 'SCM_CPLD1']
-GPU_targets = ['HGX_FW_BMC_0', 'HGX_FW_ERoT_BMC_0', 'HGX_FW_ERoT_FPGA_0', 'HGX_FW_ERoT_GPU_SXM_1', 'HGX_FW_ERoT_GPU_SXM_2', 'HGX_FW_ERoT_GPU_SXM_3', 'HGX_FW_ERoT_GPU_SXM_4', 'HGX_FW_ERoT_GPU_SXM_5', 'HGX_FW_ERoT_GPU_SXM_6', 'HGX_FW_ERoT_GPU_SXM_7', 'HGX_FW_ERoT_GPU_SXM_8', 'HGX_FW_ERoT_NVSwitch_0', 'HGX_FW_ERoT_NVSwitch_1', 'HGX_FW_ERoT_NVSwitch_2', 'HGX_FW_ERoT_NVSwitch_3', 'HGX_FW_ERoT_PCIeSwitch_0', 'HGX_FW_ERoT_PCIeSwitch_0', 'HGX_FW_GPU_SXM_1', 'HGX_FW_GPU_SXM_2', 'HGX_FW_GPU_SXM_3', 'HGX_FW_GPU_SXM_4', 'HGX_FW_GPU_SXM_5', 'HGX_FW_GPU_SXM_6', 'HGX_FW_GPU_SXM_7', 'HGX_FW_GPU_SXM_8', 'HGX_FW_NVSwitch_0', 'HGX_FW_NVSwitch_1', 'HGX_FW_NVSwitch_2', 'HGX_FW_NVSwitch_3', 'HGX_FW_PCIeRetimer_0', 'HGX_FW_PCIeRetimer_1', 'HGX_FW_PCIeRetimer_2', 'HGX_FW_PCIeRetimer_3', 'HGX_FW_PCIeRetimer_4', 'HGX_FW_PCIeRetimer_5', 'HGX_FW_PCIeRetimer_6', 'HGX_FW_PCIeRetimer_7', 'HGX_FW_PCIeSwitch_0', 'HGX_InfoROM_GPU_SXM_1', 'HGX_InfoROM_GPU_SXM_2', 'HGX_InfoROM_GPU_SXM_3', 'HGX_InfoROM_GPU_SXM_4', 'HGX_InfoROM_GPU_SXM_5', 'HGX_InfoROM_GPU_SXM_6', 'HGX_InfoROM_GPU_SXM_7', 'HGX_InfoROM_GPU_SXM_8']
+GPU_targets = ['HGX_FW_BMC_0', 'HGX_FW_ERoT_BMC_0', 'HGX_FW_ERoT_FPGA_0', 'HGX_FW_ERoT_GPU_SXM_1', 'HGX_FW_ERoT_GPU_SXM_2', 'HGX_FW_ERoT_GPU_SXM_3', 'HGX_FW_ERoT_GPU_SXM_4', 'HGX_FW_ERoT_GPU_SXM_5', 'HGX_FW_ERoT_GPU_SXM_6', 'HGX_FW_ERoT_GPU_SXM_7', 'HGX_FW_ERoT_GPU_SXM_8', 'HGX_FW_ERoT_NVSwitch_0', 'HGX_FW_ERoT_NVSwitch_1', 'HGX_FW_ERoT_NVSwitch_2', 'HGX_FW_ERoT_NVSwitch_3', 'HGX_FW_ERoT_PCIeSwitch_0', 'HGX_FW_FPGA_0', 'HGX_FW_GPU_SXM_1', 'HGX_FW_GPU_SXM_2', 'HGX_FW_GPU_SXM_3', 'HGX_FW_GPU_SXM_4', 'HGX_FW_GPU_SXM_5', 'HGX_FW_GPU_SXM_6', 'HGX_FW_GPU_SXM_7', 'HGX_FW_GPU_SXM_8', 'HGX_FW_NVSwitch_0', 'HGX_FW_NVSwitch_1', 'HGX_FW_NVSwitch_2', 'HGX_FW_NVSwitch_3', 'HGX_FW_PCIeRetimer_0', 'HGX_FW_PCIeRetimer_1', 'HGX_FW_PCIeRetimer_2', 'HGX_FW_PCIeRetimer_3', 'HGX_FW_PCIeRetimer_4', 'HGX_FW_PCIeRetimer_5', 'HGX_FW_PCIeRetimer_6', 'HGX_FW_PCIeRetimer_7', 'HGX_FW_PCIeSwitch_0', 'HGX_InfoROM_GPU_SXM_1', 'HGX_InfoROM_GPU_SXM_2', 'HGX_InfoROM_GPU_SXM_3', 'HGX_InfoROM_GPU_SXM_4', 'HGX_InfoROM_GPU_SXM_5', 'HGX_InfoROM_GPU_SXM_6', 'HGX_InfoROM_GPU_SXM_7', 'HGX_InfoROM_GPU_SXM_8']
 
 reboot = {
     "BIOS": ["AC_PC_redfish"],
@@ -208,7 +207,7 @@ class CrayRedfishUtils(RedfishUtils):
         model = self.get_model()
         if not os.path.exists(csv_file_name):
             f = open(csv_file_name, "w")
-            to_write="IP_Address,Model,HGX_FW_BMC_0,HGX_FW_ERoT_BMC_0,HGX_FW_ERoT_FPGA_0,HGX_FW_ERoT_GPU_SXM_1,HGX_FW_ERoT_GPU_SXM_2,HGX_FW_ERoT_GPU_SXM_3,HGX_FW_ERoT_GPU_SXM_4,HGX_FW_ERoT_GPU_SXM_5,HGX_FW_ERoT_GPU_SXM_6,HGX_FW_ERoT_GPU_SXM_7,HGX_FW_ERoT_GPU_SXM_8,HGX_FW_ERoT_NVSwitch_0,HGX_FW_ERoT_NVSwitch_1,HGX_FW_ERoT_NVSwitch_2,HGX_FW_ERoT_NVSwitch_3,HGX_FW_ERoT_PCIeSwitch_0,HGX_FW_ERoT_PCIeSwitch_0,HGX_FW_GPU_SXM_1,HGX_FW_GPU_SXM_2,HGX_FW_GPU_SXM_3,HGX_FW_GPU_SXM_4,HGX_FW_GPU_SXM_5,HGX_FW_GPU_SXM_6,HGX_FW_GPU_SXM_7,HGX_FW_GPU_SXM_8,HGX_FW_NVSwitch_0,HGX_FW_NVSwitch_1,HGX_FW_NVSwitch_2,HGX_FW_NVSwitch_3,HGX_FW_PCIeRetimer_0,HGX_FW_PCIeRetimer_1,HGX_FW_PCIeRetimer_2,HGX_FW_PCIeRetimer_3,HGX_FW_PCIeRetimer_4,HGX_FW_PCIeRetimer_5,HGX_FW_PCIeRetimer_6,HGX_FW_PCIeRetimer_7,HGX_FW_PCIeSwitch_0,HGX_InfoROM_GPU_SXM_1,HGX_InfoROM_GPU_SXM_2,HGX_InfoROM_GPU_SXM_3,HGX_InfoROM_GPU_SXM_4,HGX_InfoROM_GPU_SXM_5,HGX_InfoROM_GPU_SXM_6,HGX_InfoROM_GPU_SXM_7,HGX_InfoROM_GPU_SXM_8\n"
+            to_write="IP_Address,Model,HGX_FW_BMC_0,HGX_FW_ERoT_BMC_0,HGX_FW_ERoT_FPGA_0,HGX_FW_ERoT_GPU_SXM_1,HGX_FW_ERoT_GPU_SXM_2,HGX_FW_ERoT_GPU_SXM_3,HGX_FW_ERoT_GPU_SXM_4,HGX_FW_ERoT_GPU_SXM_5,HGX_FW_ERoT_GPU_SXM_6,HGX_FW_ERoT_GPU_SXM_7,HGX_FW_ERoT_GPU_SXM_8,HGX_FW_ERoT_NVSwitch_0,HGX_FW_ERoT_NVSwitch_1,HGX_FW_ERoT_NVSwitch_2,HGX_FW_ERoT_NVSwitch_3,HGX_FW_ERoT_PCIeSwitch_0,HGX_FW_FPGA_0,HGX_FW_GPU_SXM_1,HGX_FW_GPU_SXM_2,HGX_FW_GPU_SXM_3,HGX_FW_GPU_SXM_4,HGX_FW_GPU_SXM_5,HGX_FW_GPU_SXM_6,HGX_FW_GPU_SXM_7,HGX_FW_GPU_SXM_8,HGX_FW_NVSwitch_0,HGX_FW_NVSwitch_1,HGX_FW_NVSwitch_2,HGX_FW_NVSwitch_3,HGX_FW_PCIeRetimer_0,HGX_FW_PCIeRetimer_1,HGX_FW_PCIeRetimer_2,HGX_FW_PCIeRetimer_3,HGX_FW_PCIeRetimer_4,HGX_FW_PCIeRetimer_5,HGX_FW_PCIeRetimer_6,HGX_FW_PCIeRetimer_7,HGX_FW_PCIeSwitch_0,HGX_InfoROM_GPU_SXM_1,HGX_InfoROM_GPU_SXM_2,HGX_InfoROM_GPU_SXM_3,HGX_InfoROM_GPU_SXM_4,HGX_InfoROM_GPU_SXM_5,HGX_InfoROM_GPU_SXM_6,HGX_InfoROM_GPU_SXM_7,HGX_InfoROM_GPU_SXM_8\n"
             all_targets = GPU_targets
             f.write(to_write)
             f.close()
@@ -241,23 +240,22 @@ class CrayRedfishUtils(RedfishUtils):
         if not os.path.exists(csv_file_name):
             f = open(csv_file_name, "w")
             to_write="IP_Address,Model,BMC,BMCImage1,BMCImage2,BIOS,BIOS2,BPB_CPLD1,BPB_CPLD2,MB_CPLD1,SCM_CPLD1\n"
-            all_targets = XD670_targets
             f.write(to_write)
             f.close()
         entry=[]
         entry.append(IP)
         if model=="NA":
             entry.append("unreachable/unsupported_system") #unreachable or not having model field correctly, i.e not even a XD system
-            for target in all_targets:
+            for target in XD670_targets:
                 entry.append("NA")
         elif partial_models[model.upper()] not in supported_models: #might be a Cray XD like XD685 which is not yet supported
-            entry.append("unsupported_model, ",partial_models)
-            for target in all_targets:
+            entry.append("unsupported_model, ")
+            for target in XD670_targets:
                 entry.append("NA")
             #return {'ret': True, 'changed': True, 'msg': 'Must specify systems of only the supported models. Please check the model of %s'%(IP)}
         else:
             entry.append(model)
-            for target in all_targets:
+            for target in XD670_targets:
                 if target in supported_targets[partial_models[model.upper()]]:
                     version=self.get_fw_version(target)
                 else:
@@ -278,39 +276,14 @@ class CrayRedfishUtils(RedfishUtils):
                 headers = {'Expect': 'Continue','Content-Type': 'multipart/form-data'}
                 body = {}
                 if target=="GPU_ALL" and image_type=="HMC" and "fwpkg" in image_path:
-                    response = self.bmcfreememory()
-                    if not response:
+                    response_memory = self.bmcfreememory()
+                    if not response_memory:
                         update_status="BMC free memory failed"
                     else:
-                        data_memory = response['data']
+                        data_memory = response_memory['data']
                         if 'Status' in data_memory and data_memory['Status'] == 'Success':
                             targets_uri='/redfish/v1/UpdateService/FirmwareInventory/HGX_FW_BMC_0'
                             body['UpdateParameters'] = (None, json.dumps({"Targets": [targets_uri]}), 'application/json')
-                            body['OemParameters'] = (None, json.dumps({"ImageType": image_type}) , 'application/json')
-                            with open(image_path, 'rb') as image_path_rb:
-                                body['UpdateFile'] = (image_path, image_path_rb,'application/octet-stream' )
-                                encoder = MultipartEncoder(body)
-                                body = encoder.to_string()
-                                headers['Content-Type'] = encoder.content_type
-                                response = self.post_multi_request(self.root_uri + "/redfish/v1/UpdateService/upload",
-                                                            headers=headers, payload=body)
-                                if response is False:
-                                    update_status="failed_Post"
-                                else:
-                                    update_status="success"
-                        else:
-                            update_status="Please reboot the BMC and AC cycle the setup then try again later"
-                elif image_type=="HMC_Partial" and "fwpkg" in image_path:
-                    response = self.bmcfreememory()
-                    if not response:
-                        update_status="BMC free memory failed"
-                    else:
-                        data_memory = response['data']
-                        if 'Status' in data_memory and data_memory['Status'] == 'Success':
-                            targets = target.split()
-                            targets_uri='/redfish/v1/UpdateService/FirmwareInventory/'
-                            formatted_targets = [targets_uri + target for target in targets]
-                            body['UpdateParameters'] = (None, json.dumps({"Targets": formatted_targets}), 'application/json')
                             body['OemParameters'] = (None, json.dumps({"ImageType": image_type}) , 'application/json')
                             with open(image_path, 'rb') as image_path_rb:
                                 body['UpdateFile'] = (image_path, image_path_rb,'application/octet-stream' )
@@ -362,6 +335,7 @@ class CrayRedfishUtils(RedfishUtils):
                         encoder = MultipartEncoder(body)
                         body = encoder.to_string()
                         headers['Content-Type'] = encoder.content_type
+                        response=False
                         response = self.post_multi_request(self.root_uri + data['MultipartHttpPushUri'],
                                                     headers=headers, payload=body)
                         if response is False:
@@ -485,7 +459,7 @@ class CrayRedfishUtils(RedfishUtils):
                     image_paths=image_path_inputs["XD670"].split()
                     if len(image_paths)!=2:
                         return {'ret': False, 'changed': True,'msg': 'Must specify exactly 2 image_paths, first for SCM_CPLD1 of Cray XD670 and second for MB_CPLD1 of Cray XD670'}
-                    elif "SCM" not in image_paths[0]:
+                    elif "CD" not in image_paths[0]:
                         return {'ret': False, 'changed': True,'msg': 'Must specify correct image and target'}
                     elif "MB" not in image_paths[1]:
                         return {'ret': False, 'changed': True,'msg': 'Must specify correct image and target'}
@@ -501,9 +475,8 @@ class CrayRedfishUtils(RedfishUtils):
                 else:
                     lis=[IP,model,"NA","NA",update_status]
                 new_data=",".join(lis)
-                return {'ret': True,'changed': True, 'msg': str(new_data)}
+                return {'ret': False,'changed': True, 'msg': 'NA_fw_file_absent'}
             else:
-
                 if target!="SCM_CPLD1_MB_CPLD1" and target!="BPB_CPLD":
                         is_target_supported = self.target_supported(model,target,image_type)
                 if not is_target_supported:
@@ -532,7 +505,10 @@ class CrayRedfishUtils(RedfishUtils):
                                         remarks="Please plug out and plug in power cables physically"
                                     else:
                                         remarks="Please reflash the firmware and DO NOT DO physical power cycle"
-                                    lis=[IP,model,update_status,remarks]
+                            lis=[IP,model,update_status,remarks]
+                        else:
+                            remarks="Please reflash the firmware and DO NOT DO physical power cycle"
+                            lis=[IP,model,update_status,remarks]
                     elif target=="BPB_CPLD":
                         update_status=self.helper_update(update_status,target,image_path,image_type,IP,username,password,model)
                         if update_status.lower() == "success":
