@@ -218,7 +218,7 @@ class CrayRedfishUtils(RedfishUtils):
             for target in GPU_targets:
                 entry.append("NA")
         elif partial_models[model.upper()] not in supported_models: #might be a Cray XD like XD685 which is not yet supported
-            entry.append("unsupported_model, ",partial_models)
+            entry.append("unsupported_model, ")
             for target in GPU_targets:
                 entry.append("NA")
             #return {'ret': True, 'changed': True, 'msg': 'Must specify systems of only the supported models. Please check the model of %s'%(IP)}
