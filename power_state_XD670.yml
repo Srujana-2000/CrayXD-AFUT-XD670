@@ -2,7 +2,8 @@
 - hosts: xds
   gather_facts: yes
   connection: local
-  name: version 1.3 Get Power State of HPE Cray XD670 model nodes
+  name: version 0.3 Get Power State of HPE Cray XD670 model nodes
+
   
   vars:
     bmc_username: "{{ inputs[inventory_hostname].user }}"

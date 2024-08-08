@@ -2,7 +2,7 @@
 - hosts: xds
   gather_facts: yes
   connection: local
-  name: version 1.3 System Firmware Update for HPE Cray XD670 systems
+  name: version 0.3 System Firmware Update for HPE Cray XD670 systems
   
   vars:
      bmc_username: "{{ inputs[inventory_hostname].user }}"
