@@ -156,6 +156,8 @@ class CrayRedfishUtils(RedfishUtils):
         try:
             if 'HMC' in image_type:
                 return True
+            if 'RCU' in image_type:
+                return True
             elif target in supported_targets[partial_models[model.upper()]]:
                 return True
             return False
@@ -327,7 +329,8 @@ class CrayRedfishUtils(RedfishUtils):
                         targets_uri='/redfish/v1/UpdateService/FirmwareInventory/'+target+'/'
                         body['UpdateParameters'] = (None, json.dumps({"Targets": [targets_uri]}), 'application/json')
                     else:
-                        BPB_target = ['/redfish/v1/UpdateService/FirmwareInventory/BPB_CPLD1','/redfish/v1/UpdateService/FirmwareInventory/BPB_CPLD2']
+                        image_type = "BPB_CPLD"
+                        BPB_target = ['/redfish/v1/UpdateService/FirmwareInventory/BPB_CPLD1']
                         body['UpdateParameters'] = (None, json.dumps({"Targets": BPB_target}), 'application/json')
                     body['OemParameters'] = (None, json.dumps({"ImageType": image_type}) , 'application/json')
                     with open(image_path, 'rb') as image_path_rb:
@@ -460,7 +463,7 @@ class CrayRedfishUtils(RedfishUtils):
                         return {'ret': False, 'changed': True,'msg': 'Must specify exactly 2 image_paths, first for SCM_CPLD1 of Cray XD670 and second for MB_CPLD1 of Cray XD670'}
                     elif "CD" not in image_paths[0]:
                         return {'ret': False, 'changed': True,'msg': 'Must specify correct image and target'}
-                    elif "MB" not in image_paths[1]:
+                    elif "A4C" not in image_paths[1]:
                         return {'ret': False, 'changed': True,'msg': 'Must specify correct image and target'}
                     for img_path in image_paths:
                         if not os.path.isfile(img_path):
@@ -489,7 +492,7 @@ class CrayRedfishUtils(RedfishUtils):
                 else:
                     #call version of respective target and store versions before update
                     if target=="SCM_CPLD1_MB_CPLD1":
-                        update_status=self.helper_update(update_status,"SCM_CPLD1",image_paths[0],image_type,IP,username,password,model)
+                        update_status=self.helper_update(update_status,"SCM_CPLD1",image_paths[0],"SCM_CPLD",IP,username,password,model)
                         if update_status.lower()=="success": #SCM has updates successfully, proceed for MB_CPLD1 update
                             #check node to be off -- call power_off_node funcn
                             power_state = self.power_state()
@@ -499,7 +502,7 @@ class CrayRedfishUtils(RedfishUtils):
                                 if power_state.lower() == "on":
                                     lis=[IP,model,"NA","MB_CPLD1 requires node off, tried powering off the node, but failed to power off"] #unable to power off node for MB_CPLD1
                                 else:
-                                    update_status=self.helper_update(update_status,"MB_CPLD1",image_paths[1],image_type,IP,username,password,model)
+                                    update_status=self.helper_update(update_status,"MB_CPLD1",image_paths[1],"MB_CPLD",IP,username,password,model)
                                     if update_status.lower() == "success":
                                         remarks="Please plug out and plug in power cables physically"
                                     else:
