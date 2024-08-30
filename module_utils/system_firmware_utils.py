@@ -461,6 +461,10 @@ class CrayRedfishUtils(RedfishUtils):
                     image_paths=image_path_inputs["XD670"].split()
                     if len(image_paths)!=2:
                         return {'ret': False, 'changed': True,'msg': 'Must specify exactly 2 image_paths, first for SCM_CPLD1 of Cray XD670 and second for MB_CPLD1 of Cray XD670'}
+                    elif "CD" not in image_paths[0]:
+                        return {'ret': False, 'changed': True,'msg': 'Must specify correct image and target'}
+                    elif "A4C" not in image_paths[1]:
+                        return {'ret': False, 'changed': True,'msg': 'Must specify correct image and target'}
                     for img_path in image_paths:
                         if not os.path.isfile(img_path):
                             #update_status = "fw_file_absent"
